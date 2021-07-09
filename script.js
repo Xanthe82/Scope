@@ -32,7 +32,7 @@
 }
 
 const firstName = 'Xanthe';
-calcAge(1982); //can have dif variables with the same name, in different scopes. Also can have dif functions with the same parameter names. Each param is only defined in the scope of that function. */
+calcAge(1982); //can have dif variables with the same name, in different scopes. Also can have dif functions with the same parameter names. Each param is only defined in the scope of that function. 
 
 //Hoisting with variables
 //console.log(me); // var - hoisted to value 'undefined'
@@ -59,7 +59,7 @@ const addExpr = function (a, b) {
 var addArrow = (a, b) => a + b;
 
 // Example
-if (!numProducts) deleteShoppingCart(); //function runs because at this point, numProducts is undefiend. So don't use var. Declare variables at top of each scope. Always declare functions first, use after declaration.
+if (!numProducts) deleteShoppingCart(); //function runs because at this point, numProducts is undefined. So don't use var. Declare variables at top of each scope. Always declare functions first, use after declaration.
 
 var numProducts = 10;
 
@@ -72,4 +72,36 @@ let y = 2;
 const z = 3;
 console.log(x === window.x); //true. Creates property on global window object.
 console.log(y === window.x); //false
-console.log(z === window.x); //false
+console.log(z === window.x); //false */
+console.log(this);
+
+const calcAge = function (birthYear) {
+  console.log(2021 - birthYear);
+  console.log(this); //undefined in strict mode
+};
+calcAge(1982);
+
+const calcAgeArrow = birthYear => {
+  console.log(2021 - birthYear);
+  console.log(this); //lexical this keyword - this of its parent function - so this = window
+};
+calcAgeArrow(2012);
+
+const xanthe = {
+  year: 1982,
+  calcAge: function () {
+    console.log(this);
+    console.log(2021 - this.year);
+  },
+};
+xanthe.calcAge(); //prints the object - {year:1982, calcAge: f} The next cl prints year.
+
+const imogen = {
+  year: 2017,
+};
+
+imogen.calcAge = xanthe.calcAge; // copy the method from xanthe to imogen. Method borrowing.
+imogen.calcAge(); //prints the imogen object and birthyear. The this keyword always points to the object that's calling the method.
+
+const f = xanthe.calcAge; //copy the function into new variable
+f(); //undefined as function not attached to an object

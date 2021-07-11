@@ -72,7 +72,7 @@ let y = 2;
 const z = 3;
 console.log(x === window.x); //true. Creates property on global window object.
 console.log(y === window.x); //false
-console.log(z === window.x); //false */
+console.log(z === window.x); //false 
 console.log(this);
 
 const calcAge = function (birthYear) {
@@ -104,4 +104,60 @@ imogen.calcAge = xanthe.calcAge; // copy the method from xanthe to imogen. Metho
 imogen.calcAge(); //prints the imogen object and birthyear. The this keyword always points to the object that's calling the method.
 
 const f = xanthe.calcAge; //copy the function into new variable
-f(); //undefined as function not attached to an object
+f(); //undefined as function not attached to an object 
+
+const xanthe = {
+  firstName: 'Xanthe',
+  year: 1982,
+  calcAge: function () {
+    console.log(this);
+    console.log(2021 - this.year);
+  },
+  greet: () => console.log(`Hi ${this.firstName}`),
+};
+xanthe.greet(); //Outputs Hi undefined. Arrow function has no this keyword. Global scope this instead. Best practice not to use arrow functions as methods. 
+
+const xanthe = {
+  firstName: 'Xanthe',
+  year: 1982,
+  calcAge: function () {
+    //console.log(this);
+    console.log(2021 - this.year);
+
+    //Solution 1
+    //const self = this; // pre-es6 solution - self or that
+    //const isMillenial = function () {
+    //console.log(self);
+    //console.log(self.year >= 1981 && self.year <= 1996);
+    //console.log(this.year >= 1981 && this.year <= 1996);
+    //};
+
+    //Solution 2
+    const isMillenial = () => {
+      //arrow function gets this from parent scope
+      console.log(this);
+      console.log(this.year >= 1981 && this.year <= 1996);
+    };
+    isMillenial();
+  },
+
+  greet: function () {
+    console.log(`Hi ${this.firstName}`);
+  },
+};
+xanthe.greet();
+xanthe.calcAge(); */
+
+// arguments keyword
+const addExpr = function (a, b) {
+  console.log(arguments);
+  return a + b;
+};
+addExpr(2, 5);
+addExpr(2, 5, 8, 12);
+
+var addArrow = (a, b) => {
+  console.log(arguments); // doesn't exist in arrow functions
+  return a + b;
+};
+addArrow(2, 5, 8);

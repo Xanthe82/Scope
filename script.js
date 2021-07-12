@@ -146,7 +146,7 @@ const xanthe = {
   },
 };
 xanthe.greet();
-xanthe.calcAge(); */
+xanthe.calcAge();
 
 // arguments keyword
 const addExpr = function (a, b) {
@@ -160,4 +160,60 @@ var addArrow = (a, b) => {
   console.log(arguments); // doesn't exist in arrow functions
   return a + b;
 };
-addArrow(2, 5, 8);
+addArrow(2, 5, 8); 
+
+let age = 30;
+let prevAge = age;
+age = 31;
+console.log(age);
+console.log(prevAge);
+
+const man = {
+  name: 'Jonas',
+  age: 30,
+};
+const friend = man;
+friend.age = 27;
+console.log('Friend:', friend);
+//Friend: {name: "Jonas", age: 27}
+console.log('Man:', man);
+//Man: {name: "Jonas", age: 27}
+*/
+
+//primitive types stored in the call stack
+let lastName = 'Williams';
+let oldLastName = lastName;
+lastName = 'Davis';
+console.log(lastName, oldLastName);
+
+//reference types stored in the heap
+const jessica = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+};
+
+//copying the reference which points to same object
+const marriedJessica = jessica;
+marriedJessica.lastName = 'Davis';
+console.log('Before marriage: ', jessica);
+console.log('After marriage: ', marriedJessica);
+//changes lastName value of original object
+
+// Copying objects
+
+const jessica2 = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+  family: ['Alice', 'Bob'],
+};
+
+const jessicaCopy = Object.assign({}, jessica2);
+jessicaCopy.lastname = 'Davis';
+
+jessicaCopy.family.push('Mary');
+jessicaCopy.family.push('John'); //targeting an object within the object
+console.log('Before marriage: ', jessica2);
+console.log('After marriage: ', jessicaCopy);
+//the array object changes in both the objects. Only shallow clone was achieved in Object.assign
